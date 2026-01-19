@@ -1,14 +1,14 @@
 `timescale 1ns / 1ps
 
-module single_port_sync_read_ROM(clk,ad_rd, data_out);
+module single_port_sync_read_ROM #(parameter w=8,parameter d=16)(clk,ad_rd, data_out);
     input clk;
-	 input [3:0]ad_rd;
-    output reg [7:0]data_out;
+	input [$clog2(d)-1:0]ad_rd;
+	output reg [w-1:0]data_out;
 	 
-	 reg [7:0]rom [0:15];
+	reg [w-1:0]rom [0:d-1];
 	 
 	 initial begin
-		$readmemb("rom.bin",rom,0,15);
+		 $readmemb("rom.bin",rom,0,d-1);
 	 end
 	 
 	 always @(posedge clk) begin

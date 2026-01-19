@@ -1,16 +1,17 @@
 `timescale 1ns / 1ps
 
 module single_port_sync_read_ROM_tb_v;
-
+	localparam w=8;
+	localparam d=16;
 	// Inputs
 	reg clk=0;
-	reg [3:0] ad_rd;
+	reg [$clog2(d)-1:0] ad_rd;
 	integer i=0;
 	// Outputs
-	wire [7:0] data_out;
+	wire [w-1:0] data_out;
 
 	// Instantiate the Unit Under Test (UUT)
-	single_port_sync_read_ROM uut (
+	single_port_sync_read_ROM #(.w(w),.d(d)) uut (
 		.clk(clk), 
 		.ad_rd(ad_rd), 
 		.data_out(data_out)
